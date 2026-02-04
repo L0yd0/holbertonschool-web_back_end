@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Module for using PyMongo to parse nginx logs """
+"""Module for using PyMongo to parse nginx logs"""
 from pymongo import MongoClient
 
 
