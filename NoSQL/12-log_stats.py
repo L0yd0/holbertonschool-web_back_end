@@ -1,26 +1,28 @@
 #!/usr/bin/env python3
-"""Write a Python script that provides some stats about
-Nginx logs stored in MongoDB
-"""
+""" Module for using PyMongo to parse nginx logs """
+
 from pymongo import MongoClient
 
 
+# default host:port is localhost:27017
+client = MongoClient()
+col = client.logs.nginx
+
+# have to use empty {} to get count of all docs!
+count = col.count_documents({})
+get = col.count_documents({"method": "GET"})
+post = col.count_documents({"method": "POST"})
+put = col.count_documents({"method": "PUT"})
+patch = col.count_documents({"method": "PATCH"})
+delete = col.count_documents({"method": "DELETE"})
+status = col.count_documents({"method": "GET", "path": "/status"})
+
 if __name__ == "__main__":
-    client = MongoClient()
-    nginx_collection = client.logs.nginx
-
-    print("{} logs".format(nginx_collection.count_documents({})))
-
+    print(f"{count} logs")
     print("Methods:")
-    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-    for method in methods:
-        print("\tmethod {}: {}".format(
-            method,
-            nginx_collection.count_documents({"method": method})
-        ))
-
-    print("{} status check".format(
-        nginx_collection.count_documents(
-            {"method": "GET", "path": "/status"}
-        )
-    ))
+    print(f"\tmethod GET: {get}")
+    print(f"\tmethod POST: {post}")
+    print(f"\tmethod PUT: {put}")
+    print(f"\tmethod PATCH: {patch}")
+    print(f"\tmethod DELETE: {delete}")
+    print(f"{status} status check")
