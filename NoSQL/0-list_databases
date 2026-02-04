@@ -1,2 +1,5 @@
+cat << 'EOF' > NoSQL/0-list_databases
 // my comment
 show dbs
+
+EOF
