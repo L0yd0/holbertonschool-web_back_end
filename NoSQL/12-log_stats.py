@@ -2,7 +2,7 @@
 """
 Provides some stats about Nginx logs stored in MongoDB
 """
-from pymongo import MongoClient
+from pymongo import MongoClient 
 from typing import List, Dict, Optional
 
 
